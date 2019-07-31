@@ -39,7 +39,7 @@ function createRecord(conn,req){
       logger.debug(req);
       logger.debug(req.objectToCreate);
       logger.debug(req.objectJson);
-      conn.sobject("Account").create(req.objectJson, function(err, ret) {
+      conn.sobject(req.objectToCreate).create(req.objectJson, function(err, ret) {
         if (err || !ret.success) 
         { 
           console.error(err, ret);
