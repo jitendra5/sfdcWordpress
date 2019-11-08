@@ -68,7 +68,7 @@ router.post('/', function(req, res, next) {
       .then((result)=>{
           //console.log(result);
           console.log('####insertOps called: ');
-          res.status(200).end();
+          //res.status(200).end();
           res.send(JSON.stringify({'Status': result,'Response':'200'}));
       })
       .catch((error)=>{
