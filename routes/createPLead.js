@@ -13,10 +13,12 @@ router.post('/', function(req, res, next) {
           conn.sobject("Account").create(req.body, function(err, ret) {
           if (err || !ret.success) 
           { 
-              return console.error(err, ret); 
+              //return console.error(err, ret); 
+              resolve('Error in creating Lead..');
           }
           else{
               console.log("Created record id : " + ret.id);
+              resolve("Lead Created Successfully. Id: "+ret.id);
           }
           });
       })
@@ -66,7 +68,8 @@ router.post('/', function(req, res, next) {
       .then((result)=>{
           //console.log(result);
           console.log('####insertOps called: ');
-          res.send(JSON.stringify({'Status': 'Lead created successfully!!','Response':'200'}));
+          res.status(200).end();
+          res.send(JSON.stringify({'Status': result,'Response':'200'}));
       })
       .catch((error)=>{
           console.log(error);
