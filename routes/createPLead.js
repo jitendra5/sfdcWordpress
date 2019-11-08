@@ -3,12 +3,12 @@ var router = express.Router();
 var jsforce = require('jsforce');
 
 router.post('/', function(req, res, next) {
-  logger.debug('data---');
-  logger.debug(req.body);
-  logger.debug('conn');
-  logger.debug(conn);
+  console.log('data---');
+  console.log(req.body);
+  console.log('conn');
+  console.log(conn);
   let insertOPS = function insertLead(conn){
-      logger.debug('Inserting Lead now.!!!');
+      console.log('Inserting Lead now.!!!');
       return new Promise(function(resolve, reject) {
           // Single record creation
           conn.sobject("Account").create(req.body, function(err, ret) {
@@ -23,7 +23,7 @@ router.post('/', function(req, res, next) {
       })
   }
   let sfdcConnFn =function callJSForce(tables){
-      logger.debug('Calling JSFORCE now.!!!');
+      console.log('Calling JSFORCE now.!!!');
       return new Promise(function(resolve, reject) {
           var conn = new jsforce.Connection({
               // you can change loginUrl to connect to sandbox or prerelease env.
@@ -39,9 +39,9 @@ router.post('/', function(req, res, next) {
                   console.error(err); 
               }
               else{
-                  //logger.debug(conn.instanceUrl);
-                  logger.debug("User ID: " + userInfo.id);
-                  logger.debug("Org ID: " + userInfo.organizationId);
+                  //console.log(conn.instanceUrl);
+                  console.log("User ID: " + userInfo.id);
+                  console.log("Org ID: " + userInfo.organizationId);
                   var resp={
                       con :conn,
                       status:'200',
@@ -58,19 +58,19 @@ router.post('/', function(req, res, next) {
       let connectSFDC = sfdcConnFn();
       var totalTables=[];
       connectSFDC.then((result)=>{
-          logger.debug("#####connected to SFDC "+result.status);
-          logger.debug('resul--------t');
-          logger.debug(result);
-          //logger.debug(result);
+          console.log("#####connected to SFDC "+result.status);
+          console.log('resul--------t');
+          console.log(result);
+          //console.log(result);
           return insertOPS(result.con);
       })
       .then((result)=>{
-          //logger.debug(result);
-          logger.debug('####insertOps called: ');
+          //console.log(result);
+          console.log('####insertOps called: ');
           res.send(JSON.stringify({'Status': 'Lead created successfully!!','Response':'200'}));
       })
       .catch((error)=>{
-          logger.debug(error);
+          console.log(error);
           res.status(404).end();
       });
   };
