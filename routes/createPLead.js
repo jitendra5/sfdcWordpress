@@ -6,7 +6,6 @@ router.post('/', function(req, res, next) {
   console.log('data---');
   console.log(req.body);
   console.log('conn');
-  console.log(conn);
   let insertOPS = function insertLead(conn){
       console.log('Inserting Lead now.!!!');
       return new Promise(function(resolve, reject) {
